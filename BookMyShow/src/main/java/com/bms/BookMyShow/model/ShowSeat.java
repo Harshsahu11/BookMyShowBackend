@@ -18,7 +18,7 @@ public class ShowSeat {
 
     @ManyToOne
     @JoinColumn(name = "show_id",nullable = false)
-    private Show Seat;
+    private Show show;
 
     @ManyToOne
     @JoinColumn(name = "seat_id",nullable = false)
