@@ -77,6 +77,30 @@ public class ShowService {
                 .collect(Collectors.toList());
     }
 
+    public List<ShowDto> getShowsByMovie(Long movieId){
+        List<Show> shows = showRepository.findByMovieId(movieId);
+        return shows.stream()
+                .map(show->{
+                    List<ShowSeat> availableSeats = showSeatRepository.findByShowIdAndStatus(
+                            show.getId(), "AVAILABLE"
+                    );
+                    return mapToDto(show,availableSeats);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<ShowDto> getShowsByMovieAndCity(Long movieId,String city){
+        List<Show> shows = showRepository.findByMovie_IdAndScreen_Theater_City(movieId,city);
+        return shows.stream()
+                .map(show->{
+                    List<ShowSeat> availableSeats = showSeatRepository.findByShowIdAndStatus(
+                            show.getId(), "AVAILABLE"
+                    );
+                    return mapToDto(show,availableSeats);
+                })
+                .collect(Collectors.toList());
+    }
+
     private ShowDto mapToDto(Show show,List<ShowSeat> availableSeat){
         ShowDto showDto = new ShowDto();
         showDto.setId(show.getId());
