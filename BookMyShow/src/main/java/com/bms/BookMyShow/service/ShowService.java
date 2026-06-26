@@ -13,6 +13,7 @@ import com.bms.BookMyShow.repository.ShowSeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,6 +101,20 @@ public class ShowService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public List<ShowDto> getShowsByDateRange(LocalDateTime startDate, LocalDateTime endDate){
+        List<Show> shows = showRepository.findByStartTimeBetween(startDate, endDate);
+        return shows.stream()
+                .map(show->{
+                    List<ShowSeat> availableSeats = showSeatRepository.findByShowIdAndStatus(
+                            show.getId(), "AVAILABLE"
+                    );
+                    return mapToDto(show,availableSeats);
+                })
+                .collect(Collectors.toList());
+    }
+
+
 
     private ShowDto mapToDto(Show show,List<ShowSeat> availableSeat){
         ShowDto showDto = new ShowDto();
