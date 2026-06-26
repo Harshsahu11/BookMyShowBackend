@@ -152,7 +152,6 @@ public class BookingService {
 
         Booking updateBooking = bookingRepository.save(booking);
         showSeatRepository.saveAll(seats);
-
         return mapToBookingDto(updateBooking,seats);
     }
 
