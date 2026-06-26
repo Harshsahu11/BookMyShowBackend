@@ -4,6 +4,7 @@ import com.bms.BookMyShow.dto.BookingDto;
 import com.bms.BookMyShow.service.BookingService;
 import com.sun.net.httpserver.HttpsConfigurator;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/bookings")
 public class BookingController {
 
+    @Autowired
     BookingService bookingService;
 
     @PostMapping
