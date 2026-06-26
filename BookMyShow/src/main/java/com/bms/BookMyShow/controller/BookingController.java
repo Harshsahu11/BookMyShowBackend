@@ -1,6 +1,7 @@
 package com.bms.BookMyShow.controller;
 
 import com.bms.BookMyShow.dto.BookingDto;
+import com.bms.BookMyShow.dto.BookingRequestDto;
 import com.bms.BookMyShow.service.BookingService;
 import com.sun.net.httpserver.HttpsConfigurator;
 import jakarta.validation.Valid;
@@ -19,10 +20,18 @@ public class BookingController {
 
     @PostMapping
      public ResponseEntity<BookingDto> createBooking(
-             @Valid
-             @RequestBody BookingDto bookingRequest){
+            @Valid
+             @RequestBody BookingRequestDto bookingRequest){
 
          return new ResponseEntity<>(bookingService.createBooking(bookingRequest), HttpStatus.CREATED);
 
      }
+
+     @GetMapping("/{id}")
+     public ResponseEntity<BookingDto> getBookingById(@PathVariable Long id){
+        return new ResponseEntity<>(bookingService.getBookingById(id),HttpStatus.OK);
+     }
+
+
+
 }
